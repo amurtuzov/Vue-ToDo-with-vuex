@@ -1,6 +1,6 @@
-# {{ Vue todo }}
+#  Vue To Do app
 
-> {{ Vue todo with vuex }}
+>  Vue to do app with vuex 
 
 ## Build Setup
 
