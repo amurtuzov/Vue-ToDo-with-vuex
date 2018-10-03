@@ -1,6 +1,6 @@
-# {{ name }}
+# {{ Vue todo }}
 
-> {{ description }}
+> {{ Vue todo with vuex }}
 
 ## Build Setup
 
