@@ -39,7 +39,14 @@ export default new Vuex.Store({
 					return 1;
 				}
 			})
-		}
+		},
+		// filterDone({toDos}) {
+		// 	let filteredTodos = toDos.filter(function(item) {
+		// 		return item.done == true;
+		// 	})
+		// 	toDos.length = 0;
+		// 	toDos.push(...filteredTodos);
+		// }
 
 	},
 
@@ -52,6 +59,17 @@ export default new Vuex.Store({
 			});
 		}
 
+	},
+	getters: {
+		allTodos(state) {
+			return state.toDos;
+		},
+		undoneTodos(state) {
+			return state.toDos.filter(todo => !todo.done);
+		},
+		doneTodos(state) {
+			return state.toDos.filter(todo => todo.done);
+		}
 	}
 
 })

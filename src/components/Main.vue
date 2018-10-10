@@ -7,9 +7,19 @@
 				<div v-show="this.$store.state.toDos.length > 0" class="toDo_sort">
 					<button class="sortDone" @click="sortDone()" title="Сначала сделанные"></button>
 					<button class="sortUndone" @click="sortUndone()" title="Сначала не сделанные"></button>
+<!-- 				<button class="filterDone" @click="filterDone()" title="Только сделанные"></button>
+					<button class="filterDone" @click="filterUndone()" title="Только не сделанные"></button>
+					<button class="filterDone" @click="showAll()" title="Все"></button> -->
+
+
+
+					<input type="checkbox" v-model="filter" true-value="done" false-value="">
+					<input type="checkbox" v-model="filter" true-value="undone" false-value="">
+					
+					<!-- <input type="checkbox" v-model="filter" true-value="all" false-value=""> -->
 				</div>
 				<ul class="toDo_list">
-					<li v-for="toDo, key in this.$store.state.toDos">
+					<li v-for="toDo, key in todos">
 						<div class="toDo_container" v-bind:class="{ toDo_done: toDo.done }">
 							<span>{{toDo.name}}</span>
 							<div class="todo_control_buttons">
@@ -45,7 +55,7 @@
 	.toDo_sort {
 		display: flex;
 		justify-content: space-between;
-		width: 35px;
+		width: 100px;
 	}
 
 	.toDo_sort button {
@@ -129,10 +139,11 @@
 <script>
 
 export default {
-  name: 'app',
+  name: 'main',
   data () {
     return {
-    	value: ''
+    	value: '',
+    	filter: ''
     }
   },
     components: {
@@ -150,7 +161,6 @@ export default {
   		if(value !== '') {
   			this.$store.commit('addTodo', {name: value, done: false});
   		}
-  		console.log(this.$store.state.todos);
   	},
   	del: function(index) {
   		this.$store.commit('deleteTodo', index);
@@ -164,7 +174,32 @@ export default {
   	},
   	sortUndone: function() {
   		this.$store.commit('sortUndone');
+  	},
+  	// showAll: function() {
+  	// 	this.filter = '';
+  	// },
+  	filterDone: function() {
+  		this.filter = 'done';
+  	},
+  	filterUndone: function() {
+  		this.filter = 'undone';
   	}
+  	// filterDone: function () {
+  	// 	this.$store.commit('filterDone');
+  	// }
+  },
+  computed: {
+  	todos () {
+  		if(this.filter == '') {
+    		return this.$store.getters.allTodos;
+    	};
+    	if(this.filter == 'done') {
+    		return this.$store.getters.doneTodos;
+    	};
+    	if(this.filter == 'undone') {
+    		return this.$store.getters.undoneTodos;
+    	};
+    }
   }
 }
 </script>
