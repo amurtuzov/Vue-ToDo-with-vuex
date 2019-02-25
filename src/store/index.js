@@ -27,16 +27,17 @@ export default new Vuex.Store({
 			toDos[index].done = true;
 		},
 		sortDone({toDos}) {
+			console.log(1)
 			toDos.sort(function(a,b) {
-				if(a.done < b.done) {
-					return 1;
+				if(a.done > b.done) {
+					return -1;
 				}
 			})
 		},
 		sortUndone({toDos}) {
 			toDos.sort(function(a,b) {
-				if(a.done > b.done) {
-					return 1;
+				if(a.done < b.done) {
+					return -1;
 				}
 			})
 		},
